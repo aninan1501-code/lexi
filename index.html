@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#140E26">
@@ -206,15 +207,8 @@
   .pkchip.pkno{border-color:var(--coral);background:rgba(255,107,138,.2)}
 </style>
 </head>
-<body style="background: radial-gradient(70% 40% at 90% -5%, rgba(155, 130, 255, 0.5) 0px, transparent 50%), radial-gradient(60% 35% at 0% 3%, rgba(255, 127, 176, 0.4) 0px, transparent 50%), radial-gradient(80% 45% at 50% 108%, rgba(79, 176, 255, 0.4) 0px, transparent 55%) rgb(20, 14, 38);">
-<div id="app"><div id="screen"><div class="top"><div class="logo">lexi</div><div class="chips"><span class="chip fl">🔥 0</span><span class="chip co">⚡ 0</span><button class="iconbtn" onclick="openSkins()" title="skins">🎨</button><button class="iconbtn" onclick="legend()" title="signs">❓</button><button class="iconbtn" onclick="checkUpdate()" title="update">🔄</button><button class="iconbtn" onclick="S.sound=!S.sound;save();sTap();home()">🔊</button></div></div><div class="screen"><div class="ey" style="margin-top:2px">your progress 👤</div><div class="flexcard"><div class="fl-lbl">flex card</div><div class="fl-big">0-day streak 🔥</div><div class="fl-row"><div><span>lvl</span><b>1</b></div><div><span>xp</span><b>0</b></div><div><span>this run</span><b>0%</b></div></div><div style="margin-top:13px;font-weight:900">vocab you can flex 💅</div></div><button class="cta ghost" onclick="shareFlex(0)">📲 share my flex</button>
-  <div class="statrow"><div class="scard"><div class="v">0</div><div class="l">learned</div></div><div class="scard"><div class="v">0</div><div class="l">mastered</div></div><div class="scard"><div class="v">0</div><div class="l">best streak</div></div></div>
-  <div class="statrow"><div class="scard"><div class="v">0</div><div class="l">right</div></div><div class="scard"><div class="v">0</div><div class="l">wrong</div></div><div class="scard"><div class="v">0%</div><div class="l">accuracy</div></div></div>
-  <div class="sect"><div class="ey">activity calendar 📅</div><div id="cal"><div class="calhead"><button onclick="calPrev()">‹</button><div style="font-weight:800;font-size:14px">June 2026</div><button onclick="calNext()" disabled="" style="opacity:.3">›</button></div><div class="calgrid"><div class="calhd">S</div><div class="calhd">M</div><div class="calhd">T</div><div class="calhd">W</div><div class="calhd">T</div><div class="calhd">F</div><div class="calhd">S</div><div></div><button class="cal-d none"><span class="dn">1</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">2</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">3</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">4</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">5</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">6</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">7</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">8</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">9</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">10</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">11</span><span class="dc"></span></button><button class="cal-d red" onclick="dayDetail('2026-06-12')"><span class="dn">12</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">13</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">14</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">15</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">16</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">17</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">18</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">19</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">20</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">21</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">22</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">23</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">24</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">25</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">26</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">27</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">28</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">29</span><span class="dc"></span></button><button class="cal-d none"><span class="dn">30</span><span class="dc"></span></button></div><div class="callegend">🔴 none · 🟡 under 15 · 🟢 15+ · tap a day for details</div></div></div>
-  <div class="sect"><div class="ey">badges</div><div class="grid2" style="margin-top:10px"><div class="tile locked" style="cursor:default"><div class="ic">🌱</div><div class="t">first word</div><div class="d">learned your first word</div></div><div class="tile locked" style="cursor:default"><div class="ic">🔥</div><div class="t">week streak</div><div class="d">7-day streak</div></div><div class="tile locked" style="cursor:default"><div class="ic">🎯</div><div class="t">on a roll</div><div class="d">10 correct in a row</div></div><div class="tile locked" style="cursor:default"><div class="ic">👑</div><div class="t">boss slayer</div><div class="d">mastered 10 Boss words</div></div><div class="tile locked" style="cursor:default"><div class="ic">🛡️</div><div class="t">trap-proof</div><div class="d">aced 15 trap words</div></div><div class="tile locked" style="cursor:default"><div class="ic">💯</div><div class="t">centurion</div><div class="d">answered 100</div></div></div></div>
-  <div class="sect"><button class="cta ghost" onclick="openSkins()">🎨 change skin</button><button class="cta" style="margin-top:10px" onclick="saveApp()">⬇ save / install this app</button></div>
-  <div class="sect"><button class="cta ghost" onclick="if(confirm('reset everything on this device?')){S=freshState();save();home()}">reset progress</button></div>
-  <div style="height:90px"></div></div><div class="tabbar"><button class="tabbtn " onclick="go('home')"><span class="ti">🏠</span>Home</button><button class="tabbtn " onclick="go('play')"><span class="ti">🎮</span>Play</button><button class="tabbtn " onclick="go('zones')"><span class="ti">🗺️</span>Zones</button><button class="tabbtn on" onclick="go('you')"><span class="ti">👤</span>You</button></div></div></div>
+<body>
+<div id="app"><div id="screen"></div></div>
 <canvas id="cf"></canvas>
 <script>
 
@@ -1000,7 +994,7 @@ const BADGES={first:{e:"🌱",t:"first word",d:"learned your first word"},streak
 let MEM={};const DB={get(k){try{return localStorage.getItem(k)}catch(e){return MEM[k]??null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){MEM[k]=v}}};
 function today(){return new Date().toISOString().slice(0,10)}
 function todayN(){const d=new Date();return Math.floor((d-new Date(d.getFullYear(),0,0))/DAYMS)+d.getFullYear()*366}
-function freshState(){return{cards:{},lastFmt:{},seenBadges:[],streak:0,best:0,last:null,xp:0,goalDate:null,goalCount:0,badges:[],hist:{},totAns:0,totOk:0,trapOk:0,trapWordOk:{},maxRun:0,sound:true,skin:0,pu:{fifty:2,dbl:2,freeze:1}}}
+function freshState(){return{cards:{},lastFmt:{},seenBadges:[],streak:0,best:0,last:null,xp:0,goalDate:null,goalCount:0,badges:[],hist:{},totAns:0,totOk:0,trapOk:0,trapWordOk:{},maxRun:0,sound:true,skin:0,name:"",avatar:"🦊",pu:{fifty:2,dbl:2,freeze:1}}}
 let S=load();
 function load(){try{const r=DB.get('lexi');if(r)return Object.assign(freshState(),JSON.parse(r))}catch(e){}return freshState()}
 function save(){DB.set('lexi',JSON.stringify(S))}
@@ -1042,7 +1036,7 @@ function seeBadge(key){if(!S.seenBadges.includes(key)){S.seenBadges.push(key);sa
 function badgeHTML(w){let h=`<span class="bdg" style="color:${RANK[w.rank].c};border-color:${RANK[w.rank].c}66" onclick="badgeInfo('${w.rank}')">${RANK[w.rank].e} ${RANK[w.rank].n}</span>`;(w.tags||[]).forEach(t=>{h+=`<span class="bdg" style="color:${TAG[t].c};border-color:${TAG[t].c}66" onclick="badgeInfo('${t}')">${TAG[t].e} ${TAG[t].n}</span>`});return h}
 
 /* ===== HOME ===== */
-function mascot(){const s=S.streak;if(s>=7)return{e:"🤩",l:"word wizard mode. unstoppable."};if(s>=3)return{e:"😎",l:"you're on a roll — keep it lit."};if(s>=1)return{e:"🦊",l:"streak going. don't fumble it."};return{e:"🦊",l:"hey! ready to flex some words?"}}
+function mascot(){const a=S.avatar||"🦊",s=S.streak;if(s>=7)return{e:a,l:"word wizard mode. unstoppable."};if(s>=3)return{e:a,l:"you're on a roll — keep it lit."};if(s>=1)return{e:a,l:"streak going. don't fumble it."};return{e:a,l:(S.name?("hey "+S.name+"! "):"hey! ")+"ready to flex some words?"}}
 function topbar(){return `<div class="top"><div class="logo">lexi</div><div class="chips"><span class="chip fl">🔥 ${S.streak}</span><span class="chip co">⚡ ${S.xp}</span><button class="iconbtn" onclick="openSkins()" title="skins">🎨</button><button class="iconbtn" onclick="legend()" title="signs">❓</button><button class="iconbtn" onclick="checkUpdate()" title="update">🔄</button><button class="iconbtn" onclick="S.sound=!S.sound;save();sTap();home()">${S.sound?'🔊':'🔇'}</button></div></div>`}
 let TAB='home';
 function draw(){checkStreakLoad();rollGoal();save();if(TAB==='play')tabPlay();else if(TAB==='zones')tabZones();else if(TAB==='you')tabYou();else tabHome()}
@@ -1053,7 +1047,7 @@ function tabHome(){const m=mascot(),lvl=levelOf(S.xp),into=S.xp%150,due=dueIds()
  $.innerHTML=topbar()+`<div class="screen">
   <div class="scoreboard"><div class="sb"><div class="n">${S.totAns}</div><div class="t">📊 answered</div></div><div class="sb"><div class="n">${S.totOk}</div><div class="t">🎯 right</div></div><div class="sb"><div class="n">${S.totAns-S.totOk}</div><div class="t">💥 wrong</div></div><div class="sb"><div class="n">${acc}%</div><div class="t">🏅 accuracy</div></div></div>
   <div class="learnbar"><div class="lbtop"><span>📚 words learned</span><span><b>${learned}</b> / ${WORDS.length}</span></div><div class="qbar"><i style="width:${WORDS.length?100*learned/WORDS.length:0}%;background:linear-gradient(90deg,var(--lav),var(--sky))"></i></div></div>
-  <div class="hero"><div class="masc">${m.e}</div><div class="hi"><div class="lvlrow">lexi lvl ${lvl} <span class="tag">⚡ ${into}/150</span></div><div class="say">${m.l}</div><div class="xpbar"><i id="xpb"></i></div></div></div>
+  <div class="hero"><div class="masc" onclick="openProfile()" style="cursor:pointer">${m.e}</div><div class="hi"><div class="lvlrow">lexi lvl ${lvl} <span class="tag">⚡ ${into}/150</span></div><div class="say">${m.l}</div><div class="xpbar"><i id="xpb"></i></div></div></div>
   <div class="quest"><div style="flex:1"><div class="ttl">today's words 🎯</div><div class="sub">${S.goalCount>=GOAL?"🎉 goal of "+GOAL+" smashed — keep going!":"daily goal: "+GOAL+" words"}</div><div class="qbar"><i style="width:${frac*100}%"></i></div></div><div class="qn">${S.goalCount>=GOAL?S.goalCount+" ✓":S.goalCount+"/"+GOAL}</div></div>
   <div class="pus"><div class="pu"><div class="e">✂️</div><b>${S.pu.fifty||0}</b>50:50</div><div class="pu"><div class="e">⚡</div><b>${S.pu.dbl||0}</b>2× XP</div><div class="pu"><div class="e">🥶</div><b>${S.pu.freeze||0}</b>freeze</div></div>
   <button class="cta" onclick="startBurst()">start today's words ${due?`<span class="pill">${Math.min(GOAL,Math.max(due,1))}</span>`:''}</button>
@@ -1077,7 +1071,7 @@ function tabYou(){calMonth=new Date();calMonth=new Date(calMonth.getFullYear(),c
   <div class="statrow"><div class="scard"><div class="v">${S.totOk}</div><div class="l">right</div></div><div class="scard"><div class="v">${S.totAns-S.totOk}</div><div class="l">wrong</div></div><div class="scard"><div class="v">${acc}%</div><div class="l">accuracy</div></div></div>
   <div class="sect"><div class="ey">activity calendar 📅</div><div id="cal">${calHTML()}</div></div>
   <div class="sect"><div class="ey">badges</div><div class="grid2" style="margin-top:10px">${badges}</div></div>
-  <div class="sect"><button class="cta ghost" onclick="openSkins()">🎨 change skin</button><button class="cta" style="margin-top:10px" onclick="saveApp()">⬇ save / install this app</button></div>
+  <div class="sect"><button class="cta ghost" onclick="openProfile()">🎀 name & buddy</button><button class="cta ghost" style="margin-top:10px" onclick="openSkins()">🎨 change skin</button><button class="cta" style="margin-top:10px" onclick="saveApp()">⬇ save / install this app</button></div>
   <div class="sect"><button class="cta ghost" onclick="if(confirm('reset everything on this device?')){S=freshState();save();home()}">reset progress</button></div>
   <div style="height:90px"></div></div>`+tabbar('you')}
 function startRank(r){const ids=WORDS.filter(w=>w.rank===r).map(w=>w.id);Q={queue:shuffle(ids).slice(0,GOAL),i:0,ok:0,run:0,mode:'rank',dbl:false};quiz()}
@@ -1277,8 +1271,29 @@ function pickCheck(){if(PT.sel.length!==2||PT.done)return;PT.done=true;const it=
  document.querySelectorAll('.pkchip').forEach((el,i)=>{const w=PT.opts[i];el.setAttribute('disabled','');if(it.pair.includes(w))el.classList.add('pkok');else if(PT.sel.includes(i))el.classList.add('pkno')});
  if(correct)PT.ok++;S.totAns++;logDay(correct);if(correct){S.totOk++;addXP(25);celebrate(3)}else{addXP(4);sBad()}S.goalCount++;rollGoal();save();checkBadges();
  document.getElementById('rev').innerHTML=`<div class="reveal ${correct?'good':'bad'}"><div class="vtag">${correct?'😎 nailed the pair!':"😵 not the right pair"}</div><div class="rdef" style="font-size:16px">✅ ${it.pair[0]} + ${it.pair[1]}</div><div class="sent" style="margin-top:8px;font-style:normal">${it.why}</div><button class="cta" style="margin-top:12px" onclick="PT.i++;pickq()">${PT.i+1>=PT.q.length?'finish':'next'}</button></div>`}
-applySkin();home();loadDrops();
+/* ===== name, avatar buddy, welcome pop-up ===== */
+const AVATARS=['🦊','🐼','🐱','🐶','🐧','🦉','🐨','🐸','🦁','🐯','🐰','🐻','🐹','🦄','🐵','🐙','🐷','🐮','🐔','🦝'];
+function welcome(){const learned=Object.values(S.cards).filter(c=>c.seen).length;const pct=WORDS.length?Math.round(100*learned/WORDS.length):0;const nm=S.name?(', '+S.name):'';
+ const m=document.createElement('div');m.className='modal';m.onclick=e=>{if(e.target===m)m.remove()};
+ m.innerHTML=`<div class="sheet" style="text-align:center;max-width:340px"><div style="font-size:62px;line-height:1">${S.avatar||'🦊'}</div>
+  <h3 style="margin-top:6px">welcome back${nm}! 👋</h3><div class="muted" style="margin:6px 0 14px">here's how far you've come</div>
+  <div style="font-size:38px;font-weight:900;color:var(--mint);line-height:1">${learned} <span style="font-size:18px;color:var(--mut);font-weight:800">/ ${WORDS.length}</span></div>
+  <div class="muted" style="font-size:13px;margin-top:3px">words learned · ${pct}%</div>
+  <div class="qbar" style="margin-top:14px"><i style="width:${pct}%;background:linear-gradient(90deg,var(--mint),var(--sky))"></i></div>
+  <button class="cta" style="margin-top:18px" onclick="this.closest('.modal').remove()">let's flex some words ✨</button></div>`;
+ document.body.appendChild(m)}
+function openProfile(){const cur=S.avatar||'🦊';
+ const grid=AVATARS.map(e=>`<button onclick="pickAvatar('${e}')" style="font-size:30px;background:${e===cur?'rgba(255,255,255,.12)':'transparent'};border:2px solid ${e===cur?'var(--lav)':'var(--line)'};border-radius:14px;padding:8px 0;cursor:pointer">${e}</button>`).join('');
+ const m=document.createElement('div');m.className='modal';m.onclick=ev=>{if(ev.target===m){const n=document.getElementById('nm');if(n){S.name=n.value.trim();save()}m.remove()}};
+ m.innerHTML=`<div class="sheet"><h3>your profile 🎀</h3><div class="sub">pick a name and a study buddy</div>
+  <input id="nm" class="typein" style="text-transform:none;font-size:18px;text-align:left;letter-spacing:0" placeholder="type your name" value="${(S.name||'').replace(/"/g,'&quot;')}" maxlength="20" autocomplete="off">
+  <div class="ey" style="margin:16px 0 8px">pick your buddy</div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">${grid}</div>
+  <button class="cta" style="margin-top:18px" onclick="saveProfile()">save ✨</button></div>`;
+ document.body.appendChild(m);setTimeout(()=>{const n=document.getElementById('nm');if(n)n.focus()},150)}
+function pickAvatar(e){const n=document.getElementById('nm');if(n)S.name=n.value.trim();S.avatar=e;save();sTap();const m=document.querySelector('.modal');if(m)m.remove();openProfile()}
+function saveProfile(){const n=document.getElementById('nm');if(n)S.name=n.value.trim();save();const m=document.querySelector('.modal');if(m)m.remove();toast((S.avatar||'🦊')+' looking good'+(S.name?(', '+S.name):'')+'!');home()}
+applySkin();home();welcome();loadDrops();
 
 </script>
-
 </body></html>
