@@ -312,6 +312,14 @@
 .rimg{width:58px;height:auto;display:block}
 .zaimg{width:44px;height:44px;object-fit:contain;display:block;margin:0 auto}
 .chimg{display:block;margin:0 auto}
+.hap{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:-1px;white-space:nowrap;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
+.toyprop{position:absolute;bottom:7%;font-size:25px;z-index:42;filter:drop-shadow(0 3px 2px rgba(0,0,0,.3));animation:toybob 2.6s ease-in-out infinite}
+@keyframes toybob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.treatbar{display:flex;align-items:center;gap:9px;padding:4px 2px 9px;font-weight:800;font-size:13px}
+.tb-it{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:5px 11px}
+.tb-toy{border:0;border-radius:11px;padding:6px 12px;font-family:inherit;font-weight:800;font-size:13px;color:#fff;cursor:pointer;background:linear-gradient(90deg,#9B82FF,#5BC0EB)}
+.tb-hint{font-size:11px;font-weight:700;opacity:.55;margin-left:auto}
+.thr{font-size:11px;font-weight:900;color:#FFD23D;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 </style>
 </head>
 <body>
@@ -1219,7 +1227,7 @@ let MEM={};const DB={get(k){try{return localStorage.getItem(k)}catch(e){return M
 function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function today(){return ymd(new Date())}
 function todayN(){const d=new Date();return Math.floor((d-new Date(d.getFullYear(),0,0))/DAYMS)+d.getFullYear()*366}
-function freshState(){return{cards:{},lastFmt:{},seenBadges:[],streak:0,best:0,last:null,xp:0,goalDate:null,goalCount:0,badges:[],hist:{},totAns:0,totOk:0,trapOk:0,trapWordOk:{},maxRun:0,sound:true,skin:0,name:"",avatar:"🦊",pu:{},herrings:{},zcyc:{},hq:{order:[],pos:0},zoo:{},dailyPick:"",zooInit:false,zooView:"scene",meters:{bb:0,sp:0,boss:0},picks:{tot:0,wild:0,legend:0,prestige:0},masteryGranted:0,zooV2:false,seenLM:false}}
+function freshState(){return{cards:{},lastFmt:{},seenBadges:[],streak:0,best:0,last:null,xp:0,goalDate:null,goalCount:0,badges:[],hist:{},totAns:0,totOk:0,trapOk:0,trapWordOk:{},maxRun:0,sound:true,skin:0,name:"",avatar:"🦊",pu:{},herrings:{},zcyc:{},hq:{order:[],pos:0},zoo:{},dailyPick:"",zooInit:false,zooView:"scene",meters:{bb:0,sp:0,boss:0},picks:{tot:0,wild:0,legend:0,prestige:0},masteryGranted:0,zooV2:false,seenLM:false,treats:0,toys:0,fed:{},worldToys:{},treatDay:{},toyDay:"",seenFeed:false}}
 let S=load();
 function load(){try{const r=DB.get('lexi');if(r)return Object.assign(freshState(),JSON.parse(r))}catch(e){}return freshState()}
 function save(){DB.set('lexi',JSON.stringify(S))}
@@ -1281,7 +1289,7 @@ function badgeHTML(w){let h=`<span class="bdg" style="color:${RANK[w.rank].c};bo
 
 /* ===== HOME ===== */
 function mascot(){const a=S.avatar||"🦊",s=S.streak;if(s>=7)return{e:a,l:"word wizard mode. unstoppable."};if(s>=3)return{e:a,l:"you're on a roll — keep it lit."};if(s>=1)return{e:a,l:"streak going. don't fumble it."};return{e:a,l:(S.name?("hey "+S.name+"! "):"hey! ")+"ready to flex some words?"}}
-function topbar(){return `<div class="top"><div class="logo">lexi</div><div class="chips"><span class="chip fl">🔥 ${S.streak}</span><span class="chip co" onclick="go('you')" style="cursor:pointer">🦁 ${zooN()}</span><button class="iconbtn" onclick="openSkins()" title="skins">🎨</button><button class="iconbtn" onclick="legend()" title="signs">❓</button><button class="iconbtn" onclick="checkUpdate()" title="update">🔄</button><button class="iconbtn" onclick="S.sound=!S.sound;save();sTap();home()">${S.sound?'🔊':'🔇'}</button></div></div>`}
+function topbar(){return `<div class="top"><div class="logo">lexi</div><div class="chips"><span class="chip fl">🔥 ${S.streak}</span><span class="chip co" onclick="go('you')" style="cursor:pointer">🦁 ${zooN()}</span><span class="chip tr">🍎 ${S.treats||0}</span><button class="iconbtn" onclick="openSkins()" title="skins">🎨</button><button class="iconbtn" onclick="legend()" title="signs">❓</button><button class="iconbtn" onclick="checkUpdate()" title="update">🔄</button><button class="iconbtn" onclick="S.sound=!S.sound;save();sTap();home()">${S.sound?'🔊':'🔇'}</button></div></div>`}
 
 /* ===== SCENE ENGINE (habitat dioramas) ===== */
 const HAB=[
@@ -1336,7 +1344,7 @@ function decorLayer(h){var k=h.k,s='';
  return '<div class="decor">'+s+'</div>';}
 function ownedInstances(worldKey){var list=[];ZOO_ALL.forEach(function(a){if(a.world!==worldKey)return;var z=S.zoo&&S.zoo[a.id];if(!z)return;var n=z.n||1,cols=z.cols||[];for(var i=0;i<n;i++){list.push({id:a.id,e:a.e,name:a.name,hue:(i<cols.length?cols[i]:null)});}});return list;}
 function panoWidth(n){return Math.max(112,Math.min(300,112+n*13));}
-function restingAnimals(insts){var n=insts.length;if(!n)return"";var lanes=[{b:50,s:.62},{b:28,s:.82},{b:7,s:1.05}];return insts.map(function(it,i){var lane=i%3,L=lanes[lane];var left=4+((i+0.5)*(92/n));var bottom=L.b+(((i*13)%7)-3);var tint=it.hue!=null?('filter:hue-rotate('+it.hue+'deg) saturate(1.7) drop-shadow(0 0 6px hsl('+it.hue+',90%,70%));'):'filter:drop-shadow(0 3px 2px rgba(0,0,0,.32));';var z=Math.round(100-bottom);return '<div class="ranim" style="left:'+left+'%;bottom:'+bottom+'%;transform:scale('+L.s+');z-index:'+z+'" onclick="zooTap(\''+it.id+'\')"><span class="rsh"></span>'+(ANIMG[it.id]?'<img class="rimg" src="'+ANIMG[it.id]+'" style="'+tint+'">':'<span class="re" style="'+tint+'">'+it.e+'</span>')+(it.hue!=null?'<span class="rspk">\u2728</span>':'')+'</div>';}).join("");}
+function restingAnimals(insts){var n=insts.length;if(!n)return"";var lanes=[{b:50,s:.62},{b:28,s:.82},{b:7,s:1.05}];return insts.map(function(it,i){var lane=i%3,L=lanes[lane];var left=4+((i+0.5)*(92/n));var bottom=L.b+(((i*13)%7)-3);var tint=it.hue!=null?('filter:hue-rotate('+it.hue+'deg) saturate(1.7) drop-shadow(0 0 6px hsl('+it.hue+',90%,70%));'):'filter:drop-shadow(0 3px 2px rgba(0,0,0,.32));';var z=Math.round(100-bottom);return '<div class="ranim" style="left:'+left+'%;bottom:'+bottom+'%;transform:scale('+L.s+');z-index:'+z+'" onclick="feedTap(\''+it.id+'\')"><span class="rsh"></span>'+(ANIMG[it.id]?'<img class="rimg" src="'+ANIMG[it.id]+'" style="'+tint+'">':'<span class="re" style="'+tint+'">'+it.e+'</span>')+(it.hue!=null?'<span class="rspk">\u2728</span>':'')+happyHearts(it.id)+'</div>';}).join("");}
 function worldInner(h,W,opts){opts=opts||{};var day=isDay(),sky=day?h.day:h.sky,celest=day?"\u2600\uFE0F":"\u{1F319}";var insts=ownedInstances(h.k);var animals=insts.length?restingAnimals(insts):"";
  var empty=insts.length?"":'<div class="emptyworld"><div class="ewe">'+h.icon+'</div><div>no '+h.name+' friends yet</div><div class="ew2">get words right to earn an animal \u2014 then place it here!</div></div>';
  var greet=opts.welcome?('<div class="sgreet"><div class="sg1">'+(S.name?("welcome back, "+S.name):"welcome back")+" "+(S.avatar||"\u{1F98A}")+'</div><div class="sg2">\u{1F525} '+S.streak+"-day streak \u00b7 \u{1F981} "+zooN()+" animals</div></div>"):"";
@@ -1345,7 +1353,7 @@ function worldInner(h,W,opts){opts=opts||{};var day=isDay(),sky=day?h.day:h.sky,
 function worldTabs(cur){var L=learnedN();return '<div class="ztabs">'+HAB.map(function(h){var unl=L>=(h.need||0),on=h.k===cur;return '<button class="ztab'+(on?" on":"")+(unl?"":" lock")+'" onclick="selectWorld(\''+h.k+'\')">'+h.icon+(unl?"":'<span class="zlk">'+h.need+"</span>")+"</button>";}).join("")+"</div>";}
 function selectWorld(k){var h=habByKey(k);if(learnedN()<(h.need||0)){toast(h.icon+" "+h.name+" unlocks at "+h.need+" words learned");return;}S.zooWorld=k;save();sTap();go("you");}
 function panoNav(dir){var w=document.getElementById("pano");if(!w)return;w.scrollBy({left:dir*w.clientWidth*0.82,behavior:"smooth"});}
-function panoView(){var cur=S.zooWorld||(newestAnimal()?newestAnimal().world:"meadow");if(learnedN()<(habByKey(cur).need||0)){var u=unlockedWorlds();cur=u.length?u[0].k:"meadow";}var h=habByKey(cur);var insts=ownedInstances(cur);var animals=insts.length?restingAnimals(insts):"";var label='<div class="panolabel">'+h.icon+" "+h.name+(insts.length?" \u00b7 "+insts.length+" here":"")+"</div>";var empty=insts.length?"":'<div class="emptyworld"><div class="ewe">'+h.icon+'</div><div>no '+h.name+' friends yet</div><div class="ew2">get words right to earn an animal \u2014 then place it here!</div></div>';return worldTabs(cur)+'<div class="panostage"><div class="pano" id="pano"><div class="panoworld" style="background:linear-gradient(180deg,'+h.day[0]+','+h.day[1]+')"><img class="panobg" src="'+WORLDBG[h.k]+'" onerror="this.style.visibility=&quot;hidden&quot;"><div class="panovig"></div>'+animals+'</div></div>'+label+empty+'<button class="panoarrow l" onclick="panoNav(-1)">\u2039</button><button class="panoarrow r" onclick="panoNav(1)">\u203a</button></div>';}
+function panoView(){var cur=S.zooWorld||(newestAnimal()?newestAnimal().world:"meadow");if(learnedN()<(habByKey(cur).need||0)){var u=unlockedWorlds();cur=u.length?u[0].k:"meadow";}var h=habByKey(cur);var insts=ownedInstances(cur);var animals=insts.length?restingAnimals(insts):"";var label='<div class="panolabel">'+h.icon+" "+h.name+(insts.length?" \u00b7 "+insts.length+" here":"")+(worldThriving(cur)?' <span class="thr">\u2728 thriving</span>':"")+"</div>";var empty=insts.length?"":'<div class="emptyworld"><div class="ewe">'+h.icon+'</div><div>no '+h.name+' friends yet</div><div class="ew2">get words right to earn an animal \u2014 then place it here!</div></div>';introFeed();return worldTabs(cur)+treatBar()+'<div class="panostage"><div class="pano" id="pano"><div class="panoworld" style="background:linear-gradient(180deg,'+h.day[0]+','+h.day[1]+')"><img class="panobg" src="'+WORLDBG[h.k]+'" onerror="this.style.visibility=&quot;hidden&quot;"><div class="panovig"></div>'+toyProps(cur)+animals+'</div></div>'+label+empty+'<button class="panoarrow l" onclick="panoNav(-1)">\u2039</button><button class="panoarrow r" onclick="panoNav(1)">\u203a</button></div>';}
 function welcomeScene(){var na=newestAnimal();var h=na?habByKey(na.world):habByKey("meadow");var greet='<div class="sgreet"><div class="sg1">'+(S.name?("welcome back, "+S.name):"welcome back")+" "+(S.avatar||"\ud83e\udd8a")+'</div><div class="sg2">\ud83d\udd25 '+S.streak+"-day streak \u00b7 \ud83e\udd81 "+zooN()+' animals</div></div>';return '<div class="scene home homebg" style="background-color:'+h.day[1]+';background-image:url('+WORLDBG[h.k]+')"><div class="stopscrim"></div>'+greet+'<div class="svignette"></div></div>';}
 function zooToggle(){S.zooView=(S.zooView==="list")?"scene":"list";save();sTap();go("you")}
 function zooSection(){var head='<div class="zoohead"><div class="ey">\u{1F981} my zoo \u00b7 '+zooN()+"/"+ZOO_TOTAL+' collected</div><button class="zootoggle" onclick="zooToggle()">'+(S.zooView==="list"?"\u{1F3DE} scene":"\u{1F4CB} list")+"</button></div>";return head+(S.zooView==="list"?zooHTML():panoView());}
@@ -1384,6 +1392,30 @@ function meterBar(){S.meters=S.meters||{bb:0,sp:0,boss:0};var row=function(ct,ke
 function pickBanner(){var n=pickCount();if(!n)return"";return '<button class="pickbanner" onclick="openChooser()">🎁 you have '+n+' animal'+(n>1?'s':'')+' to choose — tap to pick!</button>';}
 function introLM(){if(S.seenLM)return;S.seenLM=true;save();setTimeout(function(){toast("📖 Learned = words you've met · 🏆 Mastered = words you know cold. Both grow as you play!");},900);}
 function zooMigrate(){if(S.zooV2)return;var bt={bb:0,sp:0,boss:0};WORDS.forEach(function(w){var c=S.cards[w.id];if(c&&c.ok>0&&bt[w.rank]!==undefined)bt[w.rank]++;});S.meters={bb:bt.bb%10,sp:bt.sp%10,boss:bt.boss%10};var m=masteredN();S.masteryGranted=Math.floor(m/25);S.picks={tot:Math.floor(bt.bb/10),wild:Math.floor(bt.sp/10),legend:Math.floor(bt.boss/10),prestige:S.masteryGranted};S.zoo={};S.zooV2=true;save();}
+
+/* ===== STAGE 4: treats & toys (feed + play) ===== */
+function earnTreats(mode){var t=today();S.treatDay=S.treatDay||{};var first=S.treatDay[mode]!==t;S.treatDay[mode]=t;var amt=first?4:1;S.treats=(S.treats||0)+amt;save();toast("+"+amt+" 🍎 treat"+(amt>1?"s":"")+(first?" · new game today!":""));return amt;}
+function earnToy(){var t=today();if(S.toyDay===t)return;S.toyDay=t;S.toys=(S.toys||0)+1;save();setTimeout(function(){toast("🎁 +1 toy — daily words done! place it in your zoo")},800);}
+function animHappy(id){return (S.fed&&S.fed[id])||0;}
+function petLabel(a){return a.e+" "+a.name;}
+function feedTap(id){var a=animalById(id);if(!a)return;
+  if((S.treats||0)<=0){toast("no 🍎 treats yet — play any game to earn some!");return;}
+  if(animHappy(id)>=5){toast(petLabel(a)+" is full & happy! 💛");return;}
+  S.treats--;S.fed=S.fed||{};S.fed[id]=animHappy(id)+1;save();
+  try{beep(880,.08,"sine");setTimeout(function(){beep(1170,.1,"sine")},90);}catch(e){}
+  toast(petLabel(a)+" munches happily 💛");go("you");}
+function worldThriving(world){var ins=ownedInstances(world);if(!ins.length)return false;return ins.every(function(it){return animHappy(it.id)>=5;});}
+function placeToy(){var cur=S.zooWorld||"meadow";if((S.toys||0)<=0){toast("no 🎁 toys yet — finish your daily words to earn one!");return;}
+  S.toys--;S.worldToys=S.worldToys||{};S.worldToys[cur]=S.worldToys[cur]||[];
+  var toys=["🎈","⚽","🪀","🧸","🪁","🎾"];var pick=toys[Math.floor(Math.random()*toys.length)];
+  S.worldToys[cur].push({l:12+Math.floor(Math.random()*72),t:pick});
+  var ins=ownedInstances(cur).filter(function(it){return animHappy(it.id)<5;});
+  if(ins.length){var pa=ins[Math.floor(Math.random()*ins.length)];S.fed=S.fed||{};S.fed[pa.id]=animHappy(pa.id)+1;}
+  save();try{fanfare()}catch(e){}toast(pick+" a new toy to play with!");go("you");}
+function toyProps(world){var arr=(S.worldToys&&S.worldToys[world])||[];return arr.map(function(o){return '<div class="toyprop" style="left:'+o.l+'%">'+o.t+"</div>";}).join("");}
+function happyHearts(id){var h=animHappy(id);if(!h)return"";var s="";for(var i=0;i<h;i++)s+="💛";return '<span class="hap">'+s+"</span>";}
+function treatBar(){return '<div class="treatbar"><span class="tb-it">🍎 '+(S.treats||0)+'</span><button class="tb-toy" onclick="placeToy()">🎁 place toy ('+(S.toys||0)+')</button><span class="tb-hint">tap an animal to feed</span></div>';}
+function introFeed(){if(S.seenFeed||!(S.treats>0))return;S.seenFeed=true;save();setTimeout(function(){toast("🍎 tap any animal in your zoo to feed it — happy animals fill with 💛")},700);}
 
 let TAB='home';
 function draw(){checkStreakLoad();rollGoal();save();if(TAB==='play')tabPlay();else if(TAB==='zones')tabZones();else if(TAB==='you')tabYou();else if(TAB==='fakeouts')tabFakeouts();else tabHome()}
@@ -1479,7 +1511,7 @@ function typeGiveUp(){const el=document.getElementById('ti');if(el)el.disabled=t
 function scrCheck(){const w=Q.w,g=applyResult(w,true);document.getElementById('rev').innerHTML=revealBlock(w,true,g)}
 function nextQ(){Q.i++;quiz()}
 function quitSession(){if(Q&&Q.i>0&&Q.i<Q.queue.length){if(!confirm('bounce now? progress is saved.'))return}home()}
-function endQuiz(){const acc=Q.queue.length?Math.round(100*Q.ok/Q.queue.length):0,met=S.goalCount>=GOAL,t=today();if(met&&S.last!==t){const y=ymd(new Date(Date.now()-DAYMS));S.streak=(S.last===y)?S.streak+1:(S.last===t?S.streak:1);if(S.streak>S.best)S.best=S.streak;S.last=t}save();
+function endQuiz(){const acc=Q.queue.length?Math.round(100*Q.ok/Q.queue.length):0,met=S.goalCount>=GOAL,t=today();if(met&&S.last!==t){const y=ymd(new Date(Date.now()-DAYMS));S.streak=(S.last===y)?S.streak+1:(S.last===t?S.streak:1);if(S.streak>S.best)S.best=S.streak;S.last=t}save();earnTreats('daily');if(met)earnToy();
  if(acc===100&&Q.queue.length>=5){milestone("⭐","PERFECT ROUND!","flawless 🔥");shakeScreen()}else if(met||acc>=80)confettiBurst(120);checkBadges();checkZoo(false);if(dailyReady())setTimeout(showDailyPick,1000);
  $.innerHTML=topbar()+`<div class="screen res"><div class="big">${acc>=80?'🤩':acc>=50?'😎':'💪'}</div><h2>${acc>=80?'absolutely ate 😤':acc>=50?'solid W':'we move 💪'}</h2><div class="muted">${Q.ok}/${Q.queue.length} correct${met?' · today’s words done 🎯':''}</div>${flexCardHTML(acc)}${wrongIds().length?`<button class="cta alt" onclick="startRedeem()">fix my ${wrongIds().length} weak words 🩹</button>`:''}<button class="cta ghost" onclick="home()">home</button></div>`}
 function flexCardHTML(acc){return `<div class="flexcard"><div class="fl-lbl">flex card</div><div class="fl-big">${S.streak}-day streak 🔥</div><div class="fl-row"><div><span>🦁</span><b>${zooN()}</b></div><div><span>mastered</span><b>${masteredN()}</b></div><div><span>this run</span><b>${acc}%</b></div></div><div style="margin-top:13px;font-weight:900">vocab you can flex 💅</div></div><button class="cta ghost" onclick="shareFlex(${acc})">📲 share my flex</button>`}
@@ -1488,7 +1520,7 @@ function shareFlex(acc){const txt=`flexing my GRE vocab 💅\\n🔥 ${S.streak}-
 /* ===== TRAP DRILLS ===== */
 function startTrap(t){const ids=WORDS.filter(w=>w.tags&&w.tags.includes(t)).map(w=>w.id);if(ids.length<2){toast("more "+TAG[t].n+" coming soon ✨");return}toast(TAG[t].e+" "+TAG[t].n+" — "+TAG[t].desc);
  if(t==='imp')setTimeout(()=>startTwin(ids),350);else if(t==='da')setTimeout(()=>startContext(ids),350);else if(t==='vf')setTimeout(()=>startVibe(),350);else if(t==='sqd')setTimeout(()=>startSquad(ids),350)}
-function trapEnd(name,ok,tot){checkZoo(false);const acc=tot?Math.round(100*ok/tot):0;if(acc>=80)milestone("🛡️",name+" cleared!","trap-proof 💪");else if(acc>=50)confettiBurst(50);$.innerHTML=topbar()+`<div class="screen res"><div class="big">${acc>=80?'🛡️':acc>=50?'😎':'💪'}</div><h2>${name} done</h2><div class="muted">${ok}/${tot} correct</div><div class="statrow"><div class="scard"><div class="v">${acc}%</div><div class="l">accuracy</div></div><div class="scard"><div class="v">${S.streak}</div><div class="l">streak</div></div><div class="scard"><div class="v">${masteredN()}</div><div class="l">mastered</div></div></div><button class="cta ghost" onclick="home()">home</button></div>`}
+function trapEnd(name,ok,tot){earnTreats('play');checkZoo(false);const acc=tot?Math.round(100*ok/tot):0;if(acc>=80)milestone("🛡️",name+" cleared!","trap-proof 💪");else if(acc>=50)confettiBurst(50);$.innerHTML=topbar()+`<div class="screen res"><div class="big">${acc>=80?'🛡️':acc>=50?'😎':'💪'}</div><h2>${name} done</h2><div class="muted">${ok}/${tot} correct</div><div class="statrow"><div class="scard"><div class="v">${acc}%</div><div class="l">accuracy</div></div><div class="scard"><div class="v">${S.streak}</div><div class="l">streak</div></div><div class="scard"><div class="v">${masteredN()}</div><div class="l">mastered</div></div></div><button class="cta ghost" onclick="home()">home</button></div>`}
 function trapGrade(w,correct,pts,tt){const st=cs(w.id);st.seen=true;S.totAns++;logDay(correct);if(correct){st.ok++;st.box=Math.min(5,st.box+1);st.due=todayN()+INTERVAL[st.box];S.totOk++;if(w.tags&&w.tags.length)S.trapOk++;if(tt){S.trapWordOk=S.trapWordOk||{};S.trapWordOk[w.id]=true}addXP(pts);S.goalCount++;rollGoal();save();checkBadges();creditWord(w);celebrate(2)}else{st.no++;st.box=Math.max(0,st.box-1);st.due=todayN();addXP(2);S.goalCount++;rollGoal();save();sBad()}}
 /* 🎭 Twin Tap */
 let TT=null;function startTwin(ids){TT={q:shuffle(ids),i:0,ok:0};twin()}
@@ -1547,7 +1579,7 @@ function herrSlip(){if(HS.i>=HS.q.length)return herrEnd('Spot the Slip',HS.ok,HS
 function herrSlipAns(saysOk){const it=HS.q[HS.i],h=it.h,userRight=(saysOk===HS.useRight),rk=it.it.c,wk=it.it.c==='a'?'b':'a';document.querySelectorAll('.hbtn').forEach(b=>b.setAttribute('disabled',''));if(userRight)HS.ok++;herrGrade(h,userRight);
  const verdict=HS.useRight?`✅ that was correct — <b>${h[rk].w}</b> fits here`:`🚫 wrong word — it should be <b>${h[rk].w}</b>, not <b>${h[wk].w}</b>`;
  document.getElementById('rev').innerHTML=`<div class="reveal ${userRight?'good':'bad'}"><div class="vtag">${userRight?'😎 sharp eye':'😵 it slipped past you'}</div><div class="rdef">${verdict}</div>${herrReveal(h,rk,wk)}<button class="cta" style="margin-top:12px" onclick="HS.i++;herrSlip()">${HS.i+1>=HS.q.length?'finish':'next'}</button></div>`}
-function herrEnd(name,ok,tot){checkZoo(false);const acc=tot?Math.round(100*ok/tot):0;if(acc>=80)milestone("🐟",name+" cleared!","fakeout-proof 💪");else if(acc>=50)confettiBurst(50);const wr=herrWrong().length;
+function herrEnd(name,ok,tot){earnTreats('fakeouts');checkZoo(false);const acc=tot?Math.round(100*ok/tot):0;if(acc>=80)milestone("🐟",name+" cleared!","fakeout-proof 💪");else if(acc>=50)confettiBurst(50);const wr=herrWrong().length;
  $.innerHTML=topbar()+`<div class="screen res"><div class="big">${acc>=80?'🐟':acc>=50?'😎':'💪'}</div><h2>${name} done</h2><div class="muted">${ok}/${tot} correct</div><div class="statrow"><div class="scard"><div class="v">${acc}%</div><div class="l">accuracy</div></div><div class="scard"><div class="v">${S.streak}</div><div class="l">streak</div></div><div class="scard"><div class="v">${masteredN()}</div><div class="l">mastered</div></div></div>${wr?`<button class="cta alt" onclick="startHerrRedeem()">fix my ${wr} mix-up${wr>1?'s':''} 🩹</button>`:''}<button class="cta ghost" onclick="go('fakeouts')">back to fakeouts</button></div>`}
 
 /* ===== KEPT MODES: match · real-or-fake · survival ===== */
